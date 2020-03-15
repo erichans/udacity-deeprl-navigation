@@ -1,33 +1,19 @@
 from buffer import UniformReplayBuffer
+from model import OriginalDQN, DuelDQN
 import random
 from collections import deque
-
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 from unityagents import UnityEnvironment
 import numpy as np
 
-
-# In[2]:
-
+import torch.nn.functional as F
 
 env = UnityEnvironment(file_name="Banana_Windows_x86_64/banana.exe")
-
-
-# In[3]:
 
 
 # get the default brain
 brain_name = env.brain_names[0]
 brain = env.brains[brain_name]
-
-
-# In[4]:
-
 
 # reset the environment
 env_info = env.reset(train_mode=True)[brain_name]
@@ -45,50 +31,7 @@ print('States look like:', state)
 state_size = len(state)
 print('States have length:', state_size)
 
-
-# In[5]:
-
-# In[6]:
-
-
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class QNetwork(nn.Module):
-    def __init__(self, state_size, action_size, dueling, seed):
-        super().__init__()
-        self.seed = torch.manual_seed(seed)
-        self.dueling = dueling
-        
-        self.fc1 = nn.Linear(state_size, 256)
-        self.fc2 = nn.Linear(256, 64)
-        self.fc3 = nn.Linear(64, 32)
-        
-        if self.dueling:
-            self.fc_advantage = nn.Linear(32, action_size)
-            self.fc_value = nn.Linear(32, 1)
-        else:
-            self.fc4 = nn.Linear(32, action_size)
-        
-        
-    def forward(self, x):
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
-        
-        if self.dueling:
-            value = self.fc_value(x)
-            advantage = self.fc_advantage(x)
-            return value + advantage - advantage.mean()
-        else:
-            return self.fc4(x)
-    
-
-
-# In[7]:
-
-
 import torch.optim as optim
 
 BUFFER_SIZE = int(1e5)
@@ -98,25 +41,35 @@ TAU = 1e-3
 LR = 5e-4
 UPDATE_EVERY = 4
 
-class VanillaDQNAgent:
+class DQNAgent:
     def __init__(self, state_size, action_size, seed):
         self.device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-        print('Device used: {}'.format(self.device)) 
-#         self.device = 'cpu'
-        self.double_dqn = False
+        
+        self.double_dqn = True
         self.dueling = True
         
         self.state_size = state_size
         self.action_size = action_size
         self.seed = random.seed(seed)
         
-        self.qnetwork_local = QNetwork(self.state_size, self.action_size, self.dueling, seed).to(self.device)
-        self.qnetwork_target = QNetwork(self.state_size, self.action_size, self.dueling, seed).to(self.device)
+        if self.dueling:
+            self.qnetwork_local = DuelDQN(self.state_size, self.action_size, seed).to(self.device)
+            self.qnetwork_target = DuelDQN(self.state_size, self.action_size, seed).to(self.device)
+        else:
+            self.qnetwork_local = OriginalDQN(self.state_size, self.action_size, seed).to(self.device)
+            self.qnetwork_target = OriginalDQN(self.state_size, self.action_size, seed).to(self.device)
+            
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
         
         self.replay_buffer = UniformReplayBuffer(self.action_size, BUFFER_SIZE, BATCH_SIZE, seed, self.device)
         
         self.t_step = 0
+        
+        print('Device used: {}'.format(self.device)) 
+        print('Double DQN?', self.double_dqn)
+        print('Dueling?', self.dueling)
+        print(self.qnetwork_local)
+        print(self.qnetwork_target)    
     
     def act(self, state, epsilon=0.0):
         state = torch.from_numpy(state).float().to(self.device)
@@ -166,7 +119,7 @@ class VanillaDQNAgent:
 # import matplotlib.pyplot as plt
 # get_ipython().run_line_magic('matplotlib', 'inline')
 
-agent = VanillaDQNAgent(state_size, action_size, 42)
+agent = DQNAgent(state_size, action_size, 42)
 
 TOTAL_EPISODES = 500
 EPSILON_START = 1.0
