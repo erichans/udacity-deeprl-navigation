@@ -1,7 +1,7 @@
 # Learning Algorithm
 **Three** algorithms were tested and **solved** the problem and they are detailed below
 ## [Deep Q-learning with Experience Replay](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)
-![](/deep-q-learning-algorithm.PNG)
+![](/images/deep-q-learning-algorithm.PNG)
 
 ### Model
 ```
@@ -23,11 +23,11 @@ Target DQN -> OriginalDQN(
 ## [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)
 This algorithm changed replaced this line below:
 
-![](/original-q-learning-error.PNG)
+![](/images/original-q-learning-error.PNG)
 
 to this one to reduce Overoptimism due to estimation errors:
 
-![](/double-q-learning-error.PNG)
+![](/images/double-q-learning-error.PNG)
 ### Model
 ```
 Double DQN? True
@@ -48,11 +48,11 @@ Target DQN -> OriginalDQN(
 ## [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581)
 This algorithm changes the model from a single stream Q-network (**top**) to the dueling Q-network (**bottom**):
 
-![](dueling-networks.PNG)
+![](/images/dueling-networks.PNG)
 
 The model now has two outputs: **Value** and **Advantage** and they are combined in a way to reduce the issue of identifiability between them as shown below:
 
-![](value-advantage-dueling-networks.PNG)
+![](/images/value-advantage-dueling-networks.PNG)
 
 ### Model
 ```
@@ -95,11 +95,11 @@ Episode 344/500 Average Score: 13.04, epsilon: 0.032
 ```
 Environment solved in **244** episodes!     Average Score: **13.04**
 
-### Detailed execution logs: [here](/results-original-dqn.txt)
+### Detailed execution logs: [here](/results/results-original-dqn.txt)
 
 <h3 align="center">Score evolution</h3>
 <p align="center">
-  <img src="/score-evolution-original-dqn.png" />
+  <img src="/images/score-evolution-original-dqn.png" />
 </p>
 
 ## Deep Reinforcement Learning with Double Q-learning
@@ -111,11 +111,11 @@ Episode 353/500 Average Score: 13.03, epsilon: 0.029
 ```
 Environment solved in **253** episodes!     Average Score: **13.03**
 
-### Detailed execution logs: [here](/results-ddqn.txt)
+### Detailed execution logs: [here](/results/results-ddqn.txt)
 
 <h3 align="center">Score evolution</h3>
 <p align="center">
-  <img src="/score-evolution-ddqn.png" />
+  <img src="/images/score-evolution-ddqn.png" />
 </p>
 
 
@@ -127,11 +127,11 @@ Episode 300/500 Average Score: 11.71, epsilon: 0.049
 Episode 345/500 Average Score: 13.06, epsilon: 0.031
 ```
 Environment solved in **245** episodes!     Average Score: **13.06**
-### Detailed execution logs: [here](/results-dueling-ddqn.txt)
+### Detailed execution logs: [here](/results/results-dueling-ddqn.txt)
 
 <h3 align="center">Score evolution</h3>
 <p align="center">
-  <img src="/score-evolution-dueling-ddqn.png" />
+  <img src="/images/score-evolution-dueling-ddqn.png" />
 </p>
 
 

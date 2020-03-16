@@ -3,7 +3,7 @@ Navigation problem using Deep Reinforcement Learning Agent
 
 # Project Details
 
-![](/unity-wide.png)
+![](/images/unity-wide.png)
 ## Unity ML-Agents
 **Unity Machine Learning Agents (ML-Agents)** is an open-source Unity plugin that enables games and simulations to serve as environments for training intelligent agents.
 
@@ -15,7 +15,7 @@ In this course, you will use Unity's rich environments to design, train, and eva
 For this project, you will train an agent to navigate (and collect bananas!) in a large, square world.
 
 <p align="center">
-  <img src="/banana.gif" />
+  <img src="/images/banana.gif" />
 </p>
 
 A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana. Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.
