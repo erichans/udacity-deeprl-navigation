@@ -62,8 +62,9 @@ pip install .
 python train.py
 ```
 
-You can tune the model by changing any of the variables in train.py file (default values below):
+You can tune the model by changing the following hyperparameters in following files (default values below):
 
+### train.py
 * TOTAL_EPISODES = 500
 * EPSILON_START = 1.0
 * EPSILON_DECAY = .99
@@ -72,3 +73,11 @@ You can tune the model by changing any of the variables in train.py file (defaul
   * See paper [here](https://arxiv.org/abs/1509.06461)
 * DUELING_DQN = True
   * See paper [here](https://arxiv.org/abs/1511.06581)
+### agent.py
+* LR = 5e-4 (learning rate)
+* BUFFER_SIZE = 100.000
+* BATCH_SIZE = 64
+* GAMMA = .99 (discount factor)
+
+* UPDATE_EVERY = 4 (How many steps to wait before update the target QNetwork)
+* TAU = 1e-3 (soft update from local QNetwork parameters to target QNetwork parameters)
