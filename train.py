@@ -13,7 +13,7 @@ def start_env():
     env = UnityEnvironment(file_name="Banana_Windows_x86_64/banana.exe")
 
     # get the default brain
-    brain_name = env.brain_names[0]
+    brain_name = get_brain_name(env)
     brain = env.brains[brain_name]
 
     # reset the environment
