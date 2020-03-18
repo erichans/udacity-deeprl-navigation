@@ -14,23 +14,22 @@ def start_env():
 
     # get the default brain
     brain_name = get_brain_name(env)
-    brain = env.brains[brain_name]
+    brain = get_brain(env)
 
     # reset the environment
-    env_info = env.reset(train_mode=True)[brain_name]
+    env_info = reset_env_info(env)
 
     # number of agents in the environment
     print('Number of agents:', len(env_info.agents))
 
     # number of actions
-    action_size = brain.vector_action_space_size
+    action_size = get_action_size(env)
     print('Number of actions:', action_size)
 
     # examine the state space 
     state = env_info.vector_observations[0]
     print('States look like:', state)
-    state_size = len(state)
-    print('States have length:', state_size)
+    print('States have length:', get_state_size(env_info))
     
     return env
 
