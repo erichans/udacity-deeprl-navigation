@@ -81,3 +81,7 @@ You can tune the model by changing the following hyperparameters in following fi
 
 * UPDATE_EVERY = 4 (How many steps to wait before update the target QNetwork)
 * TAU = 1e-3 (soft update from local QNetwork parameters to target QNetwork parameters)
+
+## Report
+
+To see the report, check [here](/Report.md)
