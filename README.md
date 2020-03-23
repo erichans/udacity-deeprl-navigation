@@ -83,5 +83,9 @@ You can tune the model by changing the following hyperparameters in following fi
 * TAU = 1e-3 (soft update from local QNetwork parameters to target QNetwork parameters)
 
 ## Report
+To see more details like:
+* Learning Algorithm 
+* Plot of Rewards
+* Ideas for Future Work
 
-To see the report, check [here](/Report.md)
+Check the [Report](/Report.md)
