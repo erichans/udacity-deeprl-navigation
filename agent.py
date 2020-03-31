@@ -37,7 +37,7 @@ class DQNAgent:
             
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
         
-        self.replay_buffer = UniformReplayBuffer(self.action_size, BUFFER_SIZE, BATCH_SIZE, seed, self.device)
+        self.replay_buffer = UniformReplayBuffer(BUFFER_SIZE, BATCH_SIZE, seed, self.device)
         
         self.t_step = 0
         
